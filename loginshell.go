@@ -5,8 +5,10 @@ import (
     "fmt"
     "os"
     "os/exec"
+    "os/user"
     "errors"
     "regexp"
+    "strings"
 )
 
 func Shell() (string, error) {
@@ -20,7 +22,13 @@ func Shell() (string, error) {
 }
 
 func LinuxShell() (string, error) {
-    return os.Getenv("SHELL"), nil
+    user, err := user.Current()
+    if err != nil { return "", err }
+    out, err := exec.Command("getent", "passwd", user.Uid).Output()
+    if err != nil { return "", err }
+
+    ent := strings.Split(strings.TrimSuffix(string(out), "\n"), ":")
+    return ent[6], nil
 }
 
 func DarwinShell() (string, error) {
