@@ -8,6 +8,10 @@ Need PR for the other OS!
 
 - Linux
 - Darwin
+- Plan9
+- OpenBSD
+- FreeBSD
+- Windows
 
 ## Usage
 
