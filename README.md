@@ -11,6 +11,7 @@ Need PR for the other OS!
 - Plan9
 - OpenBSD
 - FreeBSD
+- Android (termux)
 - Windows
 
 ## Usage

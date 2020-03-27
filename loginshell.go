@@ -21,6 +21,8 @@ func Shell() (string, error) {
 		return NixShell()
 	case "freebsd":
 		return NixShell()
+	case "android":
+		return AndroidShell()
 	case "darwin":
 		return DarwinShell()
 	case "windows":
@@ -64,6 +66,14 @@ func NixShell() (string, error) {
 
 	ent := strings.Split(strings.TrimSuffix(string(out), "\n"), ":")
 	return ent[6], nil
+}
+
+func AndroidShell() (string, error) {
+	shell := os.Getenv("SHELL");
+	if shell == "" {
+		return "", errors.New("SHELL not defined in android.")
+	}
+	return shell, nil
 }
 
 func DarwinShell() (string, error) {
