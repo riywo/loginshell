@@ -44,15 +44,6 @@ func Plan9Shell() (string, error) {
 	return "/bin/rc", nil
 }
 
-func WindowsShell() (string, error) {
-	consoleApp := os.Getenv("COMSPEC")
-	if consoleApp == "" {
-		consoleApp = "cmd.exe"
-	}
-
-	return consoleApp, nil
-}
-
 func NixShell() (string, error) {
 	user, err := user.Current()
 	if err != nil {
@@ -91,4 +82,13 @@ func DarwinShell() (string, error) {
 	}
 
 	return shell, nil
+}
+
+func WindowsShell() (string, error) {
+	consoleApp := os.Getenv("COMSPEC")
+	if consoleApp == "" {
+		consoleApp = "cmd.exe"
+	}
+
+	return consoleApp, nil
 }
