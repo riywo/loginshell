@@ -21,6 +21,8 @@ func Shell() (string, error) {
 		return NixShell()
 	case "freebsd":
 		return NixShell()
+	case "android":
+		return AndroidShell()
 	case "darwin":
 		return DarwinShell()
 	case "windows":
@@ -42,15 +44,6 @@ func Plan9Shell() (string, error) {
 	return "/bin/rc", nil
 }
 
-func WindowsShell() (string, error) {
-	consoleApp := os.Getenv("COMSPEC")
-	if consoleApp == "" {
-		consoleApp = "cmd.exe"
-	}
-
-	return consoleApp, nil
-}
-
 func NixShell() (string, error) {
 	user, err := user.Current()
 	if err != nil {
@@ -64,6 +57,14 @@ func NixShell() (string, error) {
 
 	ent := strings.Split(strings.TrimSuffix(string(out), "\n"), ":")
 	return ent[6], nil
+}
+
+func AndroidShell() (string, error) {
+	shell := os.Getenv("SHELL");
+	if shell == "" {
+		return "", errors.New("SHELL not defined in android.")
+	}
+	return shell, nil
 }
 
 func DarwinShell() (string, error) {
@@ -81,4 +82,13 @@ func DarwinShell() (string, error) {
 	}
 
 	return shell, nil
+}
+
+func WindowsShell() (string, error) {
+	consoleApp := os.Getenv("COMSPEC")
+	if consoleApp == "" {
+		consoleApp = "cmd.exe"
+	}
+
+	return consoleApp, nil
 }

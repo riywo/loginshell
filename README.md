@@ -6,11 +6,12 @@ A golang library to get the login shell of the current user.
 
 Need PR for the other OS!
 
-- Linux
-- Darwin
 - Plan9
+- Linux
 - OpenBSD
 - FreeBSD
+- Android (termux)
+- Darwin
 - Windows
 
 ## Usage
